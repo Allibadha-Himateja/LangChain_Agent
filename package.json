@@ -1,0 +1,29 @@
+{
+  "name": "langchain-mssql-qa",
+  "version": "1.0.0",
+  "exports": {
+    "./subpath": "./Tools/sqlQueryTool.js"
+  },
+  "type": "module",
+  "main": "Orchestrator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "'": "file:langchain/groq/agents'",
+    "@browserbasehq/sdk": "^2.6.0",
+    "@langchain/community": "^0.3.48",
+    "@langchain/core": "^0.3.62",
+    "@langchain/groq": "^0.2.3",
+    "@langchain/langgraph": "^0.3.6",
+    "@langchain/tavily": "^0.1.4",
+    "dotenv": "^16.6.1",
+    "langchain": "^0.3.29",
+    "mssql": "^11.0.1",
+    "readline-sync": "^1.4.10"
+  }
+}

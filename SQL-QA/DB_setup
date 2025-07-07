@@ -1,0 +1,94 @@
+-- Create database
+CREATE DATABASE LangChainDb;
+GO
+
+USE LangChainDb;
+GO
+
+-- Create tables
+CREATE TABLE Artist (
+    ArtistId INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(120)
+);
+
+CREATE TABLE Album (
+    AlbumId INT PRIMARY KEY IDENTITY(1,1),
+    Title NVARCHAR(160) NOT NULL,
+    ArtistId INT NOT NULL FOREIGN KEY REFERENCES Artist(ArtistId)
+);
+
+CREATE TABLE Employee (
+    EmployeeId INT PRIMARY KEY IDENTITY(1,1),
+    LastName NVARCHAR(20) NOT NULL,
+    FirstName NVARCHAR(20) NOT NULL,
+    Title NVARCHAR(30),
+    ReportsTo INT FOREIGN KEY REFERENCES Employee(EmployeeId),
+    BirthDate DATETIME,
+    HireDate DATETIME,
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60)
+);
+
+CREATE TABLE Customer (
+    CustomerId INT PRIMARY KEY IDENTITY(1,1),
+    FirstName NVARCHAR(40) NOT NULL,
+    LastName NVARCHAR(20) NOT NULL,
+    Company NVARCHAR(80),
+    Address NVARCHAR(70),
+    City NVARCHAR(40),
+    State NVARCHAR(40),
+    Country NVARCHAR(40),
+    PostalCode NVARCHAR(10),
+    Phone NVARCHAR(24),
+    Fax NVARCHAR(24),
+    Email NVARCHAR(60) NOT NULL,
+    SupportRepId INT FOREIGN KEY REFERENCES Employee(EmployeeId)
+);
+
+CREATE TABLE Invoice (
+    InvoiceId INT PRIMARY KEY IDENTITY(1,1),
+    CustomerId INT NOT NULL FOREIGN KEY REFERENCES Customer(CustomerId),
+    InvoiceDate DATETIME NOT NULL,
+    BillingAddress NVARCHAR(70),
+    BillingCity NVARCHAR(40),
+    BillingState NVARCHAR(40),
+    BillingCountry NVARCHAR(40),
+    BillingPostalCode NVARCHAR(10),
+    Total DECIMAL(10,2) NOT NULL
+);
+
+USE Chinook;
+GO
+
+-- Insert Artists
+INSERT INTO Artist (Name) VALUES 
+('AC/DC'), ('Accept'), ('Aerosmith'), ('Alanis Morissette'), ('Alice In Chains');
+
+-- Insert Albums
+INSERT INTO Album (Title, ArtistId) VALUES
+('For Those About To Rock We Salute You', 1),
+('Balls to the Wall', 2),
+('Restless and Wild', 2),
+('Let There Be Rock', 1),
+('Big Ones', 3);
+
+-- Insert Employees
+INSERT INTO Employee (LastName, FirstName, Title, BirthDate, HireDate, Address, City, Country, PostalCode, Phone, Email) VALUES
+('Adams', 'Andrew', 'General Manager', '1962-02-18', '2002-08-14', '11120 Jasper Ave NW', 'Edmonton', 'Canada', 'T5K 2N1', '+1 (780) 428-9482', 'andrew@chinookcorp.com'),
+('Edwards', 'Nancy', 'Sales Manager', '1958-12-08', '2002-05-01', '825 8 Ave SW', 'Calgary', 'Canada', 'T2P 2T3', '+1 (403) 262-3443', 'nancy@chinookcorp.com');
+
+-- Insert Customers
+INSERT INTO Customer (FirstName, LastName, Company, Address, City, Country, PostalCode, Phone, Email, SupportRepId) VALUES
+('Luís', 'Gonçalves', 'Embraer', 'Av. Brigadeiro Faria Lima, 2170', 'São José dos Campos', 'Brazil', '12227-000', '+55 (12) 3923-5555', 'luisg@embraer.com.br', 1),
+('Leonie', 'Köhler', NULL, 'Theodor-Heuss-Straße 34', 'Stuttgart', 'Germany', '70174', '+49 0711 2842222', 'leonekohler@surfeu.de', 2);
+
+-- Insert Invoices
+INSERT INTO Invoice (CustomerId, InvoiceDate, BillingAddress, BillingCity, BillingCountry, BillingPostalCode, Total) VALUES
+(1, '2009-01-01 00:00:00', 'Av. Brigadeiro Faria Lima, 2170', 'São José dos Campos', 'Brazil', '12227-000', 13.86),
+(2, '2009-01-02 00:00:00', 'Theodor-Heuss-Straße 34', 'Stuttgart', 'Germany', '70174', 8.91);
