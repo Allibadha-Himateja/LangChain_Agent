@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import { createSQLQueryTool } from './Tools/sqlQueryTool.js';
+import { createSQLQueryTool } from '../Tools/sqlQueryTool.js';
 import { ChatGroq } from '@langchain/groq';
 import { DynamicTool } from "@langchain/core/tools";
 import { StateGraph } from "@langchain/langgraph";

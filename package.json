@@ -24,6 +24,7 @@
     "dotenv": "^16.6.1",
     "langchain": "^0.3.29",
     "mssql": "^11.0.1",
+    "openai": "^5.8.2",
     "readline-sync": "^1.4.10"
   }
 }
